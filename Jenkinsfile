@@ -1,7 +1,6 @@
 pipeline {
     agent any
 
-
     environment {
         PYTHON_PATH = 'C:\\Users\\pratiksha\\AppData\\Local\\Programs\\Python\\Python312\\python.exe'
         VENV_DIR = '.venv'
@@ -16,32 +15,32 @@ pipeline {
 
         stage('Set up Virtual Environment') {
             steps {
-                bat 'python -m venv %VENV_DIR%'
-                bat '%VENV_DIR%\\Scripts\\pip install --upgrade pip'
+                bat "${PYTHON_PATH} -m venv %VENV_DIR%"
+                bat "%VENV_DIR%\\Scripts\\pip install --upgrade pip"
             }
         }
 
         stage('Install Requirements') {
             steps {
-                bat '%VENV_DIR%\\Scripts\\pip install -r requirements.txt'
+                bat "%VENV_DIR%\\Scripts\\pip install -r requirements.txt"
             }
         }
 
         stage('Django Check') {
             steps {
-                bat '%VENV_DIR%\\Scripts\\python manage.py check'
+                bat "%VENV_DIR%\\Scripts\\python manage.py check"
             }
         }
 
         stage('Run Tests') {
             steps {
-                bat '%VENV_DIR%\\Scripts\\pytest'
+                bat "%VENV_DIR%\\Scripts\\pytest"
             }
         }
 
         stage('Send CI Log to API') {
             steps {
-                bat '%VENV_DIR%\\Scripts\\python send_report.py'
+                bat "%VENV_DIR%\\Scripts\\python JenkinsProjects\\JenkinsEmailReport\\send_report.py"
             }
         }
 
