@@ -22,7 +22,7 @@ pipeline {
 
         stage('Install Requirements') {
             steps {
-                bat "%VENV_DIR%\\Scripts\\pip install -r requirements.txt"
+                bat '%VENV_DIR%\\Scripts\\pip install -r JenkinsProjects\\devops_portal\\JenkinsEmailReport\\requirements.txt'
             }
         }
 
@@ -40,7 +40,7 @@ pipeline {
 
         stage('Send CI Log to API') {
             steps {
-                bat "%VENV_DIR%\\Scripts\\python JenkinsProjects\\JenkinsEmailReport\\send_report.py"
+                bat '%VENV_DIR%\\Scripts\\python JenkinsProjects\\devops_portal\\JenkinsEmailReport\\send_report.py'
             }
         }
 
