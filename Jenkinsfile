@@ -22,7 +22,8 @@ pipeline {
 
         stage('Install Requirements') {
             steps {
-                bat "%VENV_DIR%\\Scripts\\pip install -r JenkinsProjects\\devops_portal\\JenkinsEmailReport\\requirements.txt"
+                bat ".venv\\Scripts\\pip install -r requirements.txt"
+
             }
         }
 
