@@ -22,33 +22,25 @@ pipeline {
 
         stage('Install Requirements') {
             steps {
-                dir('devops_portal/JenkinsEmailReport') {
-                    bat "..\\..\\%VENV_DIR%\\Scripts\\pip install -r requirements.txt"
-                }
+                bat "%VENV_DIR%\\Scripts\\pip install -r JenkinsProjects\\devops_portal\\JenkinsEmailReport\\requirements.txt"
             }
         }
 
         stage('Django Check') {
             steps {
-                dir('devops_portal') {
-                    bat "..\\%VENV_DIR%\\Scripts\\python manage.py check"
-                }
+                bat "%VENV_DIR%\\Scripts\\python manage.py check"
             }
         }
 
         stage('Run Tests') {
             steps {
-                dir('devops_portal') {
-                    bat "..\\%VENV_DIR%\\Scripts\\pytest"
-                }
+                bat "%VENV_DIR%\\Scripts\\pytest"
             }
         }
 
         stage('Send CI Log to API') {
             steps {
-                dir('devops_portal/JenkinsEmailReport') {
-                    bat "..\\..\\%VENV_DIR%\\Scripts\\python send_report.py"
-                }
+                bat "%VENV_DIR%\\Scripts\\python JenkinsProjects\\devops_portal\\JenkinsEmailReport\\send_report.py"
             }
         }
 
@@ -68,3 +60,4 @@ pipeline {
         }
     }
 }
+
