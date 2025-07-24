@@ -16,13 +16,13 @@ pipeline {
         stage('Set up Virtual Environment') {
             steps {
                 bat "${PYTHON_PATH} -m venv %VENV_DIR%"
-                bat '%VENV_DIR%\\Scripts\\python -m pip install --upgrade pip'
+                bat "%VENV_DIR%\\Scripts\\python -m pip install --upgrade pip"
             }
         }
 
         stage('Install Requirements') {
             steps {
-                bat '%VENV_DIR%\\Scripts\\pip install -r JenkinsProjects\\devops_portal\\JenkinsEmailReport\\requirements.txt'
+                bat "%VENV_DIR%\\Scripts\\pip install -r JenkinsEmailReport\\requirements.txt"
             }
         }
 
@@ -40,7 +40,7 @@ pipeline {
 
         stage('Send CI Log to API') {
             steps {
-                bat '%VENV_DIR%\\Scripts\\python JenkinsProjects\\devops_portal\\JenkinsEmailReport\\send_report.py'
+                bat "%VENV_DIR%\\Scripts\\python JenkinsEmailReport\\send_report.py"
             }
         }
 
