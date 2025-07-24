@@ -41,7 +41,7 @@ pipeline {
 
         stage('Send CI Log to API') {
             steps {
-                bat "%VENV_DIR%\\Scripts\\python JenkinsProjects\\devops_portal\\JenkinsEmailReport\\send_report.py"
+                bat '.venv\\Scripts\\python send_report.py'
             }
         }
 
