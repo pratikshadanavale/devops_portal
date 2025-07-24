@@ -1,0 +1,20 @@
+<!-- templates/report_portal/history.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Report History</title>
+</head>
+<body>
+    <h1>Generated Reports</h1>
+    <ul>
+        {% for report in reports %}
+            <li>
+                {{ report.uploaded_at|date:"Y-m-d H:i" }} —
+                <a href="{{ report.report_file.url }}">{{ report.title }}</a> ({{ report.status }})
+            </li>
+        {% empty %}
+            <li>No reports available.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
