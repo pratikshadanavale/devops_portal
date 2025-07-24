@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        // Use installed Python via Jenkins plugin
-        'Python3.12'
-    }
 
     environment {
         VENV_DIR = '.venv'
