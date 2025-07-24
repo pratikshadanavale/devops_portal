@@ -3,6 +3,7 @@ pipeline {
 
 
     environment {
+        PYTHON_PATH = 'C:\\Users\\pratiksha\\AppData\\Local\\Programs\\Python\\Python312\\python.exe'
         VENV_DIR = '.venv'
     }
 
