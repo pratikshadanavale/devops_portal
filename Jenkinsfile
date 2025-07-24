@@ -1,51 +1,66 @@
-
 pipeline {
     agent any
+
+    tools {
+        // Use installed Python via Jenkins plugin
+        'Python3.12'
+    }
 
     environment {
         VENV_DIR = '.venv'
     }
 
     stages {
-        stage('Checkout Code') {
+        stage('Clone Repo') {
             steps {
-                git url: 'https://github.com/pratikshadanavale/devops_portal.git', branch: 'master'
+                git credentialsId: 'github-creds-pratiksha', url: 'https://github.com/pratikshadanavale/devops_portal.git'
             }
         }
 
-        stage('Setup Python Environment') {
+        stage('Set up Virtual Environment') {
             steps {
                 bat 'python -m venv %VENV_DIR%'
+                bat '%VENV_DIR%\\Scripts\\pip install --upgrade pip'
+            }
+        }
+
+        stage('Install Requirements') {
+            steps {
                 bat '%VENV_DIR%\\Scripts\\pip install -r requirements.txt'
             }
         }
 
-        stage('Run Django Checks') {
+        stage('Django Check') {
             steps {
                 bat '%VENV_DIR%\\Scripts\\python manage.py check'
             }
         }
 
-        stage('Run Unit Tests') {
+        stage('Run Tests') {
             steps {
-                bat '%VENV_DIR%\\Scripts\\python manage.py test'
+                bat '%VENV_DIR%\\Scripts\\pytest'
             }
         }
 
-        stage('Send Report and Log CI Status') {
+        stage('Send CI Log to API') {
             steps {
-                echo 'Running send_report.py to generate report and log to API'
-                bat 'venv\\Scripts\\python.exe JenkinsProjects\\JenkinsEmailReport\\send_report.py'
+                bat '%VENV_DIR%\\Scripts\\python send_report.py'
+            }
+        }
+
+        stage('Jira Link') {
+            steps {
+                echo '🔗 Jira Ticket: SATMS-008 - Integrate DevOps CI log with Django Portal'
             }
         }
     }
 
     post {
         success {
-            echo '✅ CI pipeline passed!'
+            echo '✅ Pipeline successful. Ready to close the Jira ticket.'
         }
         failure {
-            echo '❌ CI failed. Check logs.'
+            echo '❌ Pipeline failed. Please check Jenkins logs.'
         }
     }
 }
