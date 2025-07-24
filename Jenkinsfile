@@ -35,7 +35,7 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                bat "%VENV_DIR%\\Scripts\\pytest"
+                bat '.venv\\Scripts\\python manage.py test'
             }
         }
 
