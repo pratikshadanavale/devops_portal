@@ -41,7 +41,7 @@ pipeline {
 
         stage('Send CI Log to API') {
             steps {
-                bat ".venv/Scripts/python send_report.py"
+                bat ".venv\\Scripts\\python send_report.py"
 
             }
         }
