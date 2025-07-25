@@ -86,7 +86,7 @@ except Exception as e:
 
 import requests
 import json
-
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 def send_log_to_django(job_name, status, build_no, log_output):
     url = 'http://127.0.0.1:8000/api/logs/'
     data = {
